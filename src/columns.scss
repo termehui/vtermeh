@@ -1,0 +1,39 @@
+@use "@termehui/termeh/termeh.scss" as T;
+
+.columns {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    box-sizing: border-box;
+
+    .column {
+        display: block;
+        flex: 1 1 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    &:not(.is-gapless) {
+        $gap: T.half(T.gap("macro"));
+        margin: T.negate($gap);
+        .column {
+            padding: $gap;
+
+            > :not(:last-child) {
+                margin-bottom: $gap;
+            }
+        }
+
+        @each $name, $gap in T.gaps(T.var("columns", "gaps", ())) {
+            &.is-#{$name}-gaped {
+                margin: T.negate(T.half($gap));
+                .column {
+                    padding: T.half($gap);
+                    > :not(:last-child) {
+                        margin-bottom: T.half($gap);
+                    }
+                }
+            }
+        }
+    }
+}

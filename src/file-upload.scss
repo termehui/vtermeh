@@ -1,0 +1,84 @@
+@use "sass:math";
+@use "@termehui/termeh/termeh.scss" as T;
+@forward "@termehui/termeh/form/input.scss";
+
+.v-file-upload {
+    @include T.unselectable();
+    padding: T.gap("micro") * 2;
+    position: relative;
+
+    .v-file-thumbnails {
+        display: flex;
+        width: T.var("file-upload", "width", 4em) + 1em;
+        height: T.var("file-upload", "height", 4em);
+        position: relative;
+        cursor: help;
+        align-items: center;
+        justify-content: center;
+
+        > img {
+            width: T.var("file-upload", "width", 4em);
+            height: T.var("file-upload", "height", 4em);
+            object-fit: cover;
+            position: absolute;
+
+            &:nth-last-child(1) {
+                height: T.var("file-upload", "height", 4em);
+                @include T.ltr() {
+                    right: 1em;
+                }
+                @include T.rtl() {
+                    left: 1em;
+                }
+            }
+
+            &:nth-last-child(2) {
+                height: T.var("file-upload", "height", 4em) - 0.5em;
+                opacity: 0.75;
+                @include T.ltr() {
+                    right: 0.5em;
+                }
+                @include T.rtl() {
+                    left: 0.5em;
+                }
+            }
+
+            &:nth-last-child(3) {
+                height: T.var("file-upload", "height", 4em) - 1em;
+                opacity: 0.5;
+                @include T.ltr() {
+                    right: 0;
+                }
+                @include T.rtl() {
+                    left: 0;
+                }
+            }
+        }
+    }
+
+    > label {
+        position: absolute;
+        opacity: T.var("file-upload", "opacity", 0.1);
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        cursor: pointer;
+        @include T.transition(all);
+    }
+
+    > input {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1em;
+    }
+
+    &:hover {
+        > label {
+            background: T.color("shade");
+        }
+    }
+}

@@ -1,0 +1,54 @@
+@use "@termehui/termeh/termeh.scss" as T;
+@use "./vars.scss";
+@forward "@termehui/termeh/styles.scss";
+@forward "@termehui/termeh/layout/all.scss";
+@forward "@termehui/termeh/form/all.scss";
+@forward "@termehui/termeh/components/all.scss";
+@forward "@termehui/termeh/helpers/all.scss";
+
+// Components
+@import "../src/choose.scss";
+@import "../src/columns.scss";
+@import "../src/dropdown.scss";
+@import "../src/field.scss";
+@import "../src/file-upload.scss";
+@import "../src/icon-toggle.scss";
+@import "../src/jalaali-picker.scss";
+@import "../src/options.scss";
+@import "../src/pagination.scss";
+@import "../src/pie.scss";
+@import "../src/simple-pagination.scss";
+@import "../src/tab.scss";
+@import "../src/tile.scss";
+@import "../src/toggle.scss";
+@import "../src/toman.scss";
+
+// Custom styling
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+#app {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 1rem;
+    background: T.variant("base", "section");
+    overflow: auto;
+}
+section {
+    display: block;
+    padding: 1rem;
+    &:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+}
+code {
+    white-space: pre;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    color: T.variant("primary", "readable");
+}

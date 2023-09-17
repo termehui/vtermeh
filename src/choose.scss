@@ -1,0 +1,80 @@
+@use "sass:math";
+@use "@termehui/termeh/termeh.scss" as T;
+
+.v-choose {
+    $-gap: math.div(T.var("decorator", "size", 2px), 2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    user-select: none;
+    box-sizing: border-box;
+    background: T.color("input");
+    border-radius: T.var("radius", "normal");
+    border: 1px solid
+        T.variant("input", "border", T.variant("base", "separator"));
+    padding: T.negate($-gap);
+
+    > .item {
+        display: block;
+        flex: 1 1 auto;
+        cursor: pointer;
+        text-align: center;
+        box-sizing: border-box;
+        line-height: 1em;
+        margin: $-gap;
+        padding: T.control-padding();
+        border-radius: T.var("radius", "normal");
+        @include T.transition(all);
+
+        &:not(.is-active):hover {
+            background-color: T.variant("shade", "light");
+            color: T.variant("shade", "readable");
+        }
+
+        &.is-active {
+            background: T.color("shade");
+            color: T.variant("shade", "color");
+        }
+    }
+
+    &.is-disabled {
+        @include T.disabled();
+
+        > .item,
+        > .item.is-active {
+            background: none;
+            color: T.variant("input", "disabled-color");
+        }
+    }
+
+    &.is-stacked {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    @each $name, $size in T.sizes(T.var("choose", "sizes", ())) {
+        &.is-#{$name} {
+            font-size: $size;
+        }
+    }
+
+    @each $name, $color in T.colors(T.var("input", "colors", ())) {
+        &.is-#{$name} {
+            > .item.is-active {
+                background: $color;
+                color: T.variant($name, "color");
+            }
+
+            @include T.selection($name);
+        }
+    }
+
+    @each $device, $query in T.media-queries() {
+        @media #{$query} {
+            &.is-#{$device}-stacked {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    }
+}

@@ -1,0 +1,124 @@
+@use "sass:math";
+@use "@termehui/termeh/termeh.scss" as T;
+
+.v-pagination {
+    $-decorator: T.var("decorator", "size", 2px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    overflow: hidden;
+    overflow-x: auto;
+    direction: ltr;
+
+    > .page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: content-box;
+        min-width: 1em;
+        height: 1em;
+        line-height: 1em;
+        text-align: center;
+        margin: 0 $-decorator;
+        padding: T.gap("micro");
+        border-radius: T.var("radius", "normal");
+        @include T.transition(all);
+
+        > .arrow {
+            display: inline-block;
+            border: 0 solid currentColor;
+            border-width: 0 $-decorator $-decorator 0;
+            padding: $-decorator;
+            margin: auto;
+
+            &.is-right {
+                transform: rotate(-45deg);
+            }
+
+            &.is-left {
+                transform: rotate(135deg);
+            }
+        }
+
+        &.is-disabled {
+            @include T.locked();
+            background: none !important;
+            color: T.variant("input", "disabled-color") !important;
+
+            > .arrow {
+                border-color: T.variant("input", "disabled-color") !important;
+            }
+        }
+
+        &:not(.is-disabled):not(.is-active) {
+            cursor: pointer;
+
+            &:hover {
+                background-color: T.variant("shade", "light");
+                color: T.variant("shade", "readable");
+            }
+        }
+
+        &:not(.is-disabled).is-active {
+            background: T.color("shade");
+            color: T.variant("shade", "color");
+        }
+    }
+
+    &:not(.is-flat) {
+        padding: T.gap("micro") * 2;
+        background: T.color("input");
+        border-radius: T.var("radius", "normal");
+        border: 1px solid T.variant("base", "separator");
+    }
+
+    &.is-rounded {
+        border-radius: T.var("radius", "rounded");
+        > .page {
+            border-radius: T.var("radius", "rounded");
+        }
+    }
+
+    @each $name, $color in T.colors(T.var("pagination", "colors", ())) {
+        &.is-#{$name} {
+            &:not(.is-disabled) {
+                > .page {
+                    &:not(.is-disabled):not(.is-active):hover {
+                        background-color: T.variant($name, "light");
+                        color: T.variant($name, "readable");
+                    }
+
+                    &:not(.is-disabled).is-active {
+                        background: $color;
+                        color: T.variant($name, "color");
+                    }
+                }
+            }
+        }
+    }
+
+    &.is-disabled {
+        &:not(.is-flat) {
+            @include T.disabled();
+        }
+
+        &.is-flat {
+            color: T.variant("input", "disabled-color") !important;
+        }
+
+        > .page {
+            color: T.variant("input", "disabled-color") !important;
+
+            &.is-active {
+                background: T.variant("input", "disabled") !important;
+                color: T.variant("input", "disabled-color") !important;
+            }
+
+            > .arrow {
+                color: T.variant("input", "disabled-color") !important;
+            }
+        }
+    }
+}

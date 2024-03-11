@@ -48,7 +48,7 @@ const props = defineProps({
 defineExpose({ clear });
 
 // stats
-const fInput = ref();
+const fInput = ref<HTMLInputElement>();
 
 // computed
 const id = computed(() => generate());
@@ -99,7 +99,9 @@ function handleChange($e: Event) {
 }
 
 function clear() {
-    fInput.value && (fInput.value.value = "");
-    emits("update:modelValue", null);
+    var empty = document.createElement("input");
+    empty.type = "file";
+    fInput.value && (fInput.value.files = empty.files);
+    emits("update:modelValue", empty.files);
 }
 </script>

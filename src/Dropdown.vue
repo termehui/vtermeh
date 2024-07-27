@@ -35,6 +35,7 @@
             <input
                 ref="elI"
                 type="text"
+                size="5"
                 v-model="_search"
                 :disabled="!search"
                 :placeholder="_placeholder"

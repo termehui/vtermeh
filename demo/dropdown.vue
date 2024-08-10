@@ -12,6 +12,7 @@
             </div>
         </div>
         <div class="section">
+            <button class="button" @click.prevent="dp?.open()">Open</button>
             <vDropdown
                 :search="true"
                 :multiple="true"

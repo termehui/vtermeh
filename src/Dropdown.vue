@@ -123,6 +123,11 @@ defineExpose({
         clicked.value = false;
         focused.value = false;
     },
+    open: () => {
+        clicked.value = true;
+        focused.value = true;
+        elI.value?.focus();
+    },
 });
 
 // stats

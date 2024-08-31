@@ -9,6 +9,7 @@
             ref="inp"
             type="text"
             :id="_id"
+            size="5"
             :inputmode="inputMode as any"
             :readonly="!editable"
             :placeholder="placeholder"
@@ -18,9 +19,9 @@
 
         <slot name="input" :show="_show" :clear="_clear"></slot>
 
-        <slot name="icon" :show="_show">
+        <slot name="icon" :show="_show" style="flex: none">
             <div
-                class="icon is-action is-medium is-primary"
+                class="icon is-action is-medium"
                 :class="colClass"
                 @click="show = true"
             >
